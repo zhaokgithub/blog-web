@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import index from '@/components/index.vue'
-import article from '@/components/article.vue'
-import category from '@/components/category.vue'
-import about from '@/components/about.vue'
+import index from '@/components/views/index.vue'
+import article from '@/components/views/article.vue'
+import category from '@/components/views/category.vue'
+import about from '@/components/views/about.vue'
 
 
 

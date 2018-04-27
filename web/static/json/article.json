@@ -11,7 +11,7 @@
     },
     {
         "id": 1,
-        "info": "tefetttttttttttttttttttttttttttttttttttt",
+        "info": "这两天在项目中有个新需求：在当前页面中的有很多数据，过滤数据的条件有时间，页码，类型，id搜索….，假设我在页面中选择的某段时间，某个类型，现在我需要把握当前看到的信息完全展现给另一朋友。server端环境：时间和页码可以动态的传递到后端",
         "author": "zk",
         "creatDate": "127.55zk",
         "status": "zk",
