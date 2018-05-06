@@ -49,11 +49,11 @@
         box-shadow: 10px 0px 5px #888888;
     }
     aside {
-        float: right;
-        width: 300px;
+        width: 100%;
+        margin-left: 60px;
         display: block;
         overflow: hidden;
-         color: #888888;
+        color: #888888;
     }
     .article-content {
         border: dashed 1px #EAEAEA;
@@ -63,7 +63,7 @@
 </style>
 
 <template>
-    <div class="content-list">
+    <div >
         <el-row>
             <el-col :span="18">
                 <div class="article-info">
@@ -95,7 +95,7 @@
                         <p>文章存档</p>
                     </div>
                     <div class="artile-tag">
-                        <p style="border-bottom: solid 1px #E5E5E5;padding:5px;">文章分类</p>
+                        <p style="border-bottom: solid 1px #E5E5E5;padding:5px;">推荐文章</p>
                         <div style="border-bottom: solid 1px #E5E5E5;height:100%;min-height:150px;">
                             <p style="margin:5px;" v-for="item in articleCategory" :key="item">
                                 <span><a href="#" target="_blank">{{item}}</a></span>
@@ -139,6 +139,7 @@
         },
         mounted: function() {
             this.queryArticleIntro()
+            this.$isBlank()
             this.curTime = moment(new Date()).format("YYYY MM DD hh:mm:ss")
             this.loading = this.$loading({
                 lock: true,
@@ -151,7 +152,7 @@
             switchTab: function(name) {},
             queryArticleIntro() {
                 //test
-                let url = '/static/json/article.json'
+                let url = '../../../static/json/article.json'
                 this.$axios.get(url).then((res) => {
                     if (res.status == 200) {
                         res.data.forEach(v => {

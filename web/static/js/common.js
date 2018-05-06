@@ -269,14 +269,14 @@ exports.install = function (Vue, options) {
    *@description 用来发送Get请求,返回从服务器上得到的数据
    */
     Vue.prototype.$httpGetRequestFactory = function (url, tableData, dataFormate,status) {
-        var dateArr = ['createDate', 'fixedDate', 'reportDate']
-        var self = this
+        let dateArr = ['createDate', 'fixedDate', 'reportDate']
+        let self = this
         dataFormate = this.$isBlank(dataFormate) ? '' : dataFormate
         this.$http.get(url)
             .then((response) => {
                 if (response.status > 199 && response.status < 300) {
                     _.forEach(response.data, function (v) {
-                        for (var key in v) {
+                        for (let key in v) {
                             if (dateArr.indexOf(key) > -1 ) {
                                 v[key] = self.$getFormatDate(v[key])
                             }

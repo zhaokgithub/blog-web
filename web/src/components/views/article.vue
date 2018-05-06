@@ -1,5 +1,20 @@
+<style>
+  .content-list {
+        height: 800px;
+        min-width: 900px;
+    }
+</style>
 <template>
-  <div>
-      article
-  </div>
+    <div class="content-list">
+  
+    </div>
 </template>
+<script>
+    export default {
+        data(){
+            return {
+
+            }
+        }
+    }
+</script>

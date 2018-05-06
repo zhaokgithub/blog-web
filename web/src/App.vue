@@ -42,8 +42,8 @@
               <el-menu-item index="index">
                 首页
               </el-menu-item>
-              <el-menu-item index="category">分类</el-menu-item>
-              <el-menu-item index="phone">留言/联系方式</el-menu-item>
+              <el-menu-item index="heatarticle">热门文章</el-menu-item>
+              <el-menu-item index="comments">留言评论</el-menu-item>
               <el-menu-item index="about">关于</el-menu-item>
             </el-menu>
           </el-col>
