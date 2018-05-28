@@ -5,13 +5,16 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 import Common from '../static/js/common'
+import Collapase from './components/common/collapase'
 import elementUi from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import { debug } from 'util';
 
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 Vue.use(elementUi)
 Vue.use(Common)
+Vue.use(Collapase)
 
 /* eslint-disable no-new */
 new Vue({

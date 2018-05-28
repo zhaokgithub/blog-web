@@ -19,12 +19,12 @@ export default new Router({
       component: index,
     },
     {
-      path: '/article/:id',
+      path: '/article/detail/',
       name: 'article',
-      component: article,
+      component: article
     },
     {
-      path:'/comments',
+      path: '/comments',
       name: 'comments',
       component: comments
     },

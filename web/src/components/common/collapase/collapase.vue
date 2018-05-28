@@ -4,7 +4,7 @@
         width: 100%;
     }
     .panel-header {
-        background-color: ;
+        background-color: #EBEBEB;
         height: 30px;
         width: 100%;
         padding:10px 0px;
@@ -14,7 +14,7 @@
         width: 100%;
         padding: 0px;
         transition: height .5s;
-        background-color: white;
+        background-color: red;
     }
 </style>
 
