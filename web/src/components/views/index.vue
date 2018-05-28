@@ -1,10 +1,10 @@
 <style>
-    a{
+    a {
         list-style: none;
         text-decoration: none;
         color: #888888;
     }
-    a:hover{
+    a:hover {
         color: rgb(83, 83, 216);
     }
     .content-list {
@@ -33,7 +33,6 @@
         box-shadow: 10px 0px 5px #888888;
     }
     .artile-tag {
-        margin-top: 50px;
         text-align: left;
         background: #fff;
         box-sizing: border-box;
@@ -63,13 +62,13 @@
 </style>
 
 <template>
-    <div >
+    <div>
         <el-row>
             <el-col :span="18">
                 <div class="article-info">
                     <article v-for="items in articleInfoArr" :key="items.title" class="article-content">
                         <h3 style="border-bottom:solid 1px #F0FFFF;" @click="showArticleContent(items)">{{items.title}}</h3>
-                        <section style="color:#999" @click="showArticleContent(items)">{{items.info}}</section>
+                        <section style="color:#999;font-size:14px;" @click="showArticleContent(items)">{{items.info}}</section>
                         <footer style="color:#999;text-align:left;margin:10px;float:left;text-indent:0em;">
                             <span>{{items.type}}</span>
                             <span><!-- {{items.creatDate}} -->{{curTime}}</span>
@@ -85,15 +84,15 @@
             </el-col>
             <el-col :span="6">
                 <aside>
-                    <div class="artile-author">
-                        <p style="border-bottom: solid 1px #E5E5E5;"><i class="fa fa-circle" style="font-size:24px;color:blue;"></i>作者名</p>
-                        <div style="border-bottom: solid 1px #E5E5E5;padding:5px;">
-                            <span style="margin-left:15px;">喜欢</span>
-                            <span style="margin-left:15px;">评论</span>
-                            <span style="margin-left:15px;">作者</span>
-                        </div>
-                        <p>文章存档</p>
-                    </div>
+                    <!-- <div class="artile-author">
+                                <p style="border-bottom: solid 1px #E5E5E5;"><i class="fa fa-circle" style="font-size:24px;color:blue;"></i>作者名</p>
+                                <div style="border-bottom: solid 1px #E5E5E5;padding:5px;">
+                                    <span style="margin-left:15px;">喜欢</span>
+                                    <span style="margin-left:15px;">评论</span>
+                                    <span style="margin-left:15px;">作者</span>
+                                </div>
+                                <p>文章存档</p>
+                            </div> -->
                     <div class="artile-tag">
                         <p style="border-bottom: solid 1px #E5E5E5;padding:5px;">推荐文章</p>
                         <div style="border-bottom: solid 1px #E5E5E5;height:100%;min-height:150px;">
@@ -104,21 +103,27 @@
                         </div>
                     </div>
                     <div class="artile-hot">
-                        <p style="border-bottom: solid 1px #E5E5E5;padding:5px;">热门文章</p>
+                        <p style="border-bottom: solid 1px #E5E5E5;padding:5px;">文章分类</p>
                         <div style="border-bottom: solid 1px #E5E5E5;height:100%;min-height:150px;">
-                            <div  v-for="item in articleHot" :key="item">
+                            <div v-for="item in articleHot" :key="item">
                                 <p style="margin-top:5px;"><a href="#" target="_blank">{{item}}</a></p>
-                                <i class="fa fa-book" ></i>
-                                <span >15</span>
+                                <i class="fa fa-book"></i>
+                                <span>15</span>
                             </div>
                         </div>
                     </div>
                 </aside>
             </el-col>
         </el-row>
+        <div>
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 <script>
+    import {
+        ServerHost
+    } from '../../config.js'
     export default {
         data() {
             return {
@@ -126,10 +131,10 @@
                 articleInfoArr: [],
                 //dummy
                 curTime: '',
-                articleCategory:[
-                    "手机测试","javascript原理",'java开发'
+                articleCategory: [
+                    "手机测试", "javascript原理", 'java开发'
                 ],
-                articleHot:[
+                articleHot: [
                     "javascript原型分析",
                     "javascript闭包理解",
                     "javascript测试",
@@ -140,31 +145,41 @@
         mounted: function() {
             this.queryArticleIntro()
             this.$isBlank()
-            this.curTime = moment(new Date()).format("YYYY MM DD hh:mm:ss")
+            this.curTime = moment(new Date()).format("YYYY-MM-DD hh:mm:ss")
             this.loading = this.$loading({
                 lock: true,
                 text: 'Loading',
                 spinner: 'el-icon-loading',
                 background: 'rgba(0, 0, 0, 0.7)'
             });
+            // Object.defineProperty(this.$data,"articleInfoArr",{
+            // })
         },
         methods: {
             switchTab: function(name) {},
             queryArticleIntro() {
-                //test
-                let url = '../../../static/json/article.json'
+                let url = `${ServerHost}/article/list/`
                 this.$axios.get(url).then((res) => {
-                    if (res.status == 200) {
+                    if (res.status > 199 && res.status < 300) {
+                        console.log(res)
                         res.data.forEach(v => {
-                            this.articleInfoArr.push(v)
+                            this.articleInfoArr.push(v.fields)
                         });
                         this.loading.close()
+                    } else {
+                        console.log(res)
                     }
+                }).catch(function(err) {
+                    console.log(err)
                 })
             },
             showArticleContent(obj) {
-                let articlePath = '/article/' + obj.id
-                this.$router.push(articlePath)
+                this.$router.push({
+                    path:'article/detail/',
+                    query: {
+                        id: 1
+                    }
+                })
             },
             deleteArtile() {
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {

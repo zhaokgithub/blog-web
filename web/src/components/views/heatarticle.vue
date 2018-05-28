@@ -34,7 +34,7 @@
                     <div class="article-intro" v-for="item in titleArr">
                         <p>
                             <span>2018-04-25</span>
-                            <span><a href="#"><strong>{{item}}</strong></a></span>
+                            <span><a href="#"><strong>{{item.title}}</strong></a></span>
                             <span>zhaokai</span>
                         </p>
                     </div>
@@ -45,17 +45,29 @@
     </div>
 </template>
 <script>
+    import {
+        ServerHost
+    } from '../../config.js'
     export default {
         data() {
             return {
-                titleArr: ['test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test']
+                titleArr: [],
+                loading: null
             }
         },
-        mounted:function(){},
+        mounted: function() {
+            this.loading = this.$loading({
+                lock: true,
+                text: 'Loading',
+                spinner: 'el-icon-loading',
+                background: 'rgba(0, 0, 0, 0.7)'
+            });
+            this.queryList()
+        },
         methods: {
-            queryList(){
-                let url = ''
-                    this.$axios.get(url).then((res) => {
+            queryList() {
+                let url = `${ServerHost}/article/list/`
+                this.$axios.put(url).then((res) => {
                     if (res.status == 200) {
                         res.data.forEach(v => {
                             this.titleArr.push(v)
@@ -63,7 +75,6 @@
                         this.loading.close()
                     }
                 })
-
             }
         }
     }
