@@ -3,11 +3,7 @@
 
 <template>
     <div class="content-list">
-        <Collapase>
-        <div slot="body">
-            <p>ddddddddddd</p>
-        </div>
-        </Collapase>
+        暂无介绍
     </div>
 </template>
 <script>
