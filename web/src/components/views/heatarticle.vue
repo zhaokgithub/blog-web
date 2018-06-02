@@ -31,7 +31,7 @@
                     <div slot="header">
                         <h2>热门文章</h2>
                     </div>
-                    <div class="article-intro" v-for="item in titleArr">
+                    <div class="article-intro" v-for="item in titleArr" :key="item">
                         <p>
                             <span>2018-04-25</span>
                             <span><a href="#"><strong>{{item.title}}</strong></a></span>

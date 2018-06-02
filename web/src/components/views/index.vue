@@ -1,222 +1,276 @@
 <style>
-    a {
-        list-style: none;
-        text-decoration: none;
-        color: #888888;
-    }
-    a:hover {
-        color: rgb(83, 83, 216);
-    }
-    .content-list {
-        height: 800px;
-        min-width: 900px;
-    }
-    .article-info {
-        height: 100%;
-        width: 100%;
-        float: left;
-        background: #fff;
-        text-align: left;
-        text-indent: 2em;
-    }
-    .left-menu {
-        width: 28%;
-    }
-    .text {
-        font-size: 14px;
-    }
-    .artile-author {
-        text-align: left;
-        background: #fff;
-        box-sizing: border-box;
-        border: solid 1px #F0FFFF;
-        box-shadow: 10px 0px 5px #888888;
-    }
-    .artile-tag {
-        text-align: left;
-        background: #fff;
-        box-sizing: border-box;
-        border: solid 1px #F0FFFF;
-        box-shadow: 10px 0px 5px #888888;
-    }
-    .artile-hot {
-        margin-top: 50px;
-        text-align: left;
-        background: #fff;
-        box-sizing: border-box;
-        border: solid 1px #F0FFFF;
-        box-shadow: 10px 0px 5px #888888;
-    }
-    aside {
-        width: 100%;
-        margin-left: 60px;
-        display: block;
-        overflow: hidden;
-        color: #888888;
-    }
-    .article-content {
-        border: dashed 1px #EAEAEA;
-        word-wrap: break-word;
-        cursor: pointer;
-    }
+a {
+    list-style: none;
+    text-decoration: none;
+    color: #888888;
+}
+
+a:hover {
+    color: rgb(83, 83, 216);
+}
+
+.content-list {
+    height: 800px;
+    min-width: 900px;
+}
+
+.article-info {
+    min-height: 900px;
+    height: 100%;
+    width: 100%;
+    float: left;
+    padding: 10px;
+    background: #fff;
+    text-align: left;
+    z-index: 9999;
+    border-radius: 10px;
+    box-shadow: 0 16px 24px 1px rgba(0, 0, 0, .14), 0 6px 50px 1px rgba(0, 0, 0, .12), 0 6px 10px -5px rgba(0, 0, 0, .2);
+}
+
+.left-menu {
+    width: 28%;
+}
+
+.text {
+    font-size: 14px;
+}
+
+.artile-author {
+    text-align: left;
+    background: #fff;
+    box-sizing: border-box;
+    border: solid 1px #F0FFFF;
+    box-shadow: 10px 0px 5px #888888;
+}
+
+.artile-tag {
+    text-align: left;
+    background: #fff;
+    box-sizing: border-box;
+    border-radius: 20px;
+}
+
+.artile-hot {
+    /* margin-top: 50px; */
+    text-align: left;
+    margin-top: 10px;
+    background: #fff;
+    box-sizing: border-box;
+    border-radius: 20px;
+}
+
+.article-content {
+    min-height: 250px;
+    padding: 15px 15px 0px 15px;
+    border-bottom: solid 1px #EAEAEA;
+    word-wrap: break-word;
+    cursor: pointer;
+}
+
+.ui.red.ribbon.label {
+    border-color: #47456d;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+}
+
+.ui.red.label,
+.ui.red.labels .label {
+    background-color: #97dffd;
+    border-color: #97dffd;
+    color: #fff;
+    margin: 5px 0 15px 2px;
+    font-size: 14px;
+}
+
+.ui.ribbon.label {
+    position: relative;
+    margin: 0 .2em;
+    left: -3.3rem;
+    padding-left: 2rem;
+    border-radius: 0 4px 4px 0;
+    border-color: rgba(0, 0, 0, .15);
+}
+
+.ui.label:last-child {
+    margin-right: 0;
+}
+
+.ui.ribbon.label {
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.ui.label {
+    display: inline-block;
+    padding: .5em .8em;
+}
+
+.ui.ribbon.label:after {
+    position: absolute;
+    content: "";
+    top: 100%;
+    left: 0;
+    border-top: 0 solid transparent;
+    border-right-width: 1em;
+    border-right-color: inherit;
+    border-right-style: solid;
+    border-bottom: 1em solid transparent;
+    border-left: 0 solid transparent;
+    width: 0;
+    height: 0;
+}
+
+.ui.label a {
+    color: inherit;
+}
 </style>
 
 <template>
-    <div>
-        <el-row>
-            <el-col :span="18">
-                <div class="article-info">
-                    <article v-for="items in articleInfoArr" :key="items.title" class="article-content">
-                        <h3 style="border-bottom:solid 1px #F0FFFF;" @click="showArticleContent(items)">{{items.title}}</h3>
-                        <section style="color:#999;font-size:14px;" @click="showArticleContent(items)">{{items.info}}</section>
-                        <footer style="color:#999;text-align:left;margin:10px;float:left;text-indent:0em;">
-                            <span>{{items.type}}</span>
-                            <span><!-- {{items.creatDate}} -->{{curTime}}</span>
-                            <i class="fa fa-book"></i>
-                            <span>{{items.num}}</span>
-                        </footer>
-                        <footer style="color:#999;text-align:right;margin-right:15px;">
-                            <el-button size="mini" icon="el-icon-edit" circle></el-button>
-                            <el-button size="mini" icon="el-icon-delete" circle @click="deleteArtile"></el-button>
-                        </footer>
-                    </article>
+<div>
+    <el-row>
+        <el-col :span="18">
+            <div class="article-info">
+                <article v-for="items in articleInfoArr" :key="items.title" class="article-content">
+                    <h3 style="border-bottom:solid 1px #F0FFFF;text-align:center;line-height: 1.1;font-size: 1.6em;margin:0px;" @click="showArticleContent(items)">{{items.title}}地运行的demo快速入门跨域</h3>
+                    <div style="color:gray;text-align:right;font-size: 14px;">
+                        <span><i class="el-icon-time"></i>2017-12-05 21:56:03</span>
+                        <span><i class="el-icon-service">作者的</i></span>
+                    </div>
+                    <div class="ui ribbon label red">
+                        <a >手机测试</a>
+                    </div>
+                    <section style="color:#999;font-size:14px;min-height:180px;width:98%;">{{items.info}}之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项目的文章了，根据朋友的建议改变了博客的样式，也增加了一些新功能，下面完整地介绍这个博客项目。文末附前端实习求职简历之前有发过这个项目的文章了，根据朋友的建议改变了博客的样式，也增加了一些新功能，下面完整地介绍这个博客项目。文末附前端实习求职简历之前有发过这个项目的文章了，根据朋友的建议改变了博客的样式，也增加了一些新功能，下面完整地介绍这个博客项目。文末附前端实习求职简历之前有发过这个项目的文章了，根据朋友的建议改变了博客的样式，也增加了一些新功能，下面完整地介绍这个博客项目。文末附前端实习求职简历</section>
+                    <div style="color:#999;right;text-align:right;padding-right:20px;">
+                        <el-button type="primary" size="small" style="width:90px;color:#fff;background-color:#96e1fc;border-color:#96e1fc;margin-bottom:5px;" @click="showArticleContent(items)"><span @mouseout="isShow = false" @mouseenter="isShow = true">阅读全文</span><i v-show="isShow" class="el-icon-d-arrow-right el-icon--right"></i></el-button>
+                    </div>
+                </article>
+            </div>
+        </el-col>
+        <el-col :span="6" style="padding-left:50px;margin-top:80px;">
+            <div class="artile-tag">
+                <p style="border-bottom: solid 1px #E5E5E5;padding:5px;">推荐文章</p>
+                <div style="height:100%;min-height:150px;padding-left:10px;">
+                    <p style="margin:5px;" v-for="item in articleCategory" :key="item">
+                        <span><a href="#" target="_blank">{{item}}</a></span>
+                    </p>
                 </div>
-            </el-col>
-            <el-col :span="6">
-                <aside>
-                    <!-- <div class="artile-author">
-                                <p style="border-bottom: solid 1px #E5E5E5;"><i class="fa fa-circle" style="font-size:24px;color:blue;"></i>作者名</p>
-                                <div style="border-bottom: solid 1px #E5E5E5;padding:5px;">
-                                    <span style="margin-left:15px;">喜欢</span>
-                                    <span style="margin-left:15px;">评论</span>
-                                    <span style="margin-left:15px;">作者</span>
-                                </div>
-                                <p>文章存档</p>
-                            </div> -->
-                    <div class="artile-tag">
-                        <p style="border-bottom: solid 1px #E5E5E5;padding:5px;">推荐文章</p>
-                        <div style="border-bottom: solid 1px #E5E5E5;height:100%;min-height:150px;">
-                            <p style="margin:5px;" v-for="item in articleCategory" :key="item">
-                                <span><a href="#" target="_blank">{{item}}</a></span>
-                                <span style="float:right;">15</span>
-                            </p>
-                        </div>
+            </div>
+            <div class="artile-hot">
+                <p style="border-bottom: solid 1px #E5E5E5;padding:5px;">文章分类</p>
+                <div style="height:100%;min-height:150px;padding-left:10px;">
+                    <div v-for="item in articleHot" :key="item">
+                        <p style="margin-top:5px;"><a href="#" target="_blank">{{item}}(15)</a></p>
                     </div>
-                    <div class="artile-hot">
-                        <p style="border-bottom: solid 1px #E5E5E5;padding:5px;">文章分类</p>
-                        <div style="border-bottom: solid 1px #E5E5E5;height:100%;min-height:150px;">
-                            <div v-for="item in articleHot" :key="item">
-                                <p style="margin-top:5px;"><a href="#" target="_blank">{{item}}</a></p>
-                                <i class="fa fa-book"></i>
-                                <span>15</span>
-                            </div>
-                        </div>
-                    </div>
-                </aside>
-            </el-col>
-        </el-row>
-        <div>
-            <router-view></router-view>
-        </div>
+                </div>
+            </div>
+        </el-col>
+    </el-row>
+    <div>
+        <router-view></router-view>
     </div>
+</div>
 </template>
 <script>
-    import {
-        ServerHost
-    } from '../../config.js'
-    export default {
-        data() {
-            return {
-                loading: null,
-                articleInfoArr: [],
-                //dummy
-                curTime: '',
-                articleCategory: [
-                    "手机测试", "javascript原理", 'java开发'
-                ],
-                articleHot: [
-                    "javascript原型分析",
-                    "javascript闭包理解",
-                    "javascript测试",
-                    "额问题为",
-                ]
-            }
+import {
+    ServerHost
+} from '../../config.js'
+export default {
+    data() {
+        return {
+            isShow: false,
+            loading: null,
+            articleInfoArr: ['biati', 'dde', 'ddse', 'eeeeeeee'],
+            //dummy
+            curTime: '',
+            articleCategory: [
+                "手机测试", "javascript原理", 'java开发'
+            ],
+            articleHot: [
+                "javascript原型分析",
+                "javascript闭包理解",
+                "javascript测试",
+                "额问题为",
+            ]
+        }
+    },
+    mounted: function() {
+        this.queryArticleIntro()
+        this.$isBlank()
+        this.curTime = moment(new Date()).format("YYYY-MM-DD hh:mm:ss")
+        // this.loading = this.$loading({
+        //     lock: true,
+        //     text: 'Loading',
+        //     spinner: 'el-icon-loading',
+        //     background: 'rgba(0, 0, 0, 0.7)'
+        // });
+        // Object.defineProperty(this.$data,"articleInfoArr",{
+        // })
+    },
+    methods: {
+        switchTab: function(name) {},
+        showIcon: function() {
+            debugger
+
         },
-        mounted: function() {
-            this.queryArticleIntro()
-            this.$isBlank()
-            this.curTime = moment(new Date()).format("YYYY-MM-DD hh:mm:ss")
-            this.loading = this.$loading({
-                lock: true,
-                text: 'Loading',
-                spinner: 'el-icon-loading',
-                background: 'rgba(0, 0, 0, 0.7)'
-            });
-            // Object.defineProperty(this.$data,"articleInfoArr",{
-            // })
+        queryArticleIntro() {
+            // this.loading.close()
+            let url = `${ServerHost}/article/list/`
+            this.$axios.get(url).then((res) => {
+                if (res.status > 199 && res.status < 300) {
+                    res.data.forEach(v => {
+                        this.articleInfoArr.push(v.fields)
+                    });
+                    // this.loading.close()
+                } else {
+                    console.log(res)
+                }
+            }).catch(function(err) {
+                console.log(err)
+            })
         },
-        methods: {
-            switchTab: function(name) {},
-            queryArticleIntro() {
-                let url = `${ServerHost}/article/list/`
-                this.$axios.get(url).then((res) => {
-                    if (res.status > 199 && res.status < 300) {
-                        console.log(res)
-                        res.data.forEach(v => {
-                            this.articleInfoArr.push(v.fields)
-                        });
-                        this.loading.close()
+        showArticleContent(obj) {
+            this.$router.push({
+                path: 'article/detail/',
+                query: {
+                    id: 1
+                }
+            })
+        },
+        deleteArtile() {
+            this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning',
+                center: true,
+                beforeClose: (action, instance, done) => {
+                    if (action === 'confirm') {
+                        instance.confirmButtonLoading = true;
+                        instance.confirmButtonText = '执行中...';
+                        let url = ''
+                        this.$axios.get(url).then((res) => {
+                            if (res.status == 200) {
+                                this.articleInfoArr = [],
+                                    done()
+                            }
+                        })
                     } else {
-                        console.log(res)
+                        done();
                     }
-                }).catch(function(err) {
-                    console.log(err)
-                })
-            },
-            showArticleContent(obj) {
-                this.$router.push({
-                    path:'article/detail/',
-                    query: {
-                        id: 1
-                    }
-                })
-            },
-            deleteArtile() {
-                this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning',
-                    center: true,
-                    beforeClose: (action, instance, done) => {
-                        if (action === 'confirm') {
-                            instance.confirmButtonLoading = true;
-                            instance.confirmButtonText = '执行中...';
-                            let url = ''
-                            this.$axios.get(url).then((res) => {
-                                if (res.status == 200) {
-                                    this.articleInfoArr = [],
-                                        done()
-                                }
-                            })
-                        } else {
-                            done();
-                        }
-                    }
-                }).then((res) => {
-                    this.$message({
-                        type: 'success',
-                        message: '删除成功!'
-                    });
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消删除'
-                    });
+                }
+            }).then((res) => {
+                this.$message({
+                    type: 'success',
+                    message: '删除成功!'
                 });
-            },
-            executeEditArticle() {
-                //判断是否登录登录的话跳转到编辑页面
-            }
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                });
+            });
+        },
+        executeEditArticle() {
+            //判断是否登录登录的话跳转到编辑页面
         }
     }
+}
 </script>
