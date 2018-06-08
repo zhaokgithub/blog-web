@@ -7,7 +7,7 @@
   步骤：
   <br>
   ```
-  git clone +url//克隆项目
+  git clone +git@github.com:zhaokgithub/vue-blog.git //克隆项目
   ```
   ```
   npm install//依赖安装
