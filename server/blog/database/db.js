@@ -1,13 +1,30 @@
-var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/myweb";
+var mongoose = require('mongoose')
+const   DB_URL = 'mongodb://localhost:27017/my_web';
 
-function $connectDb(callbackFun) {
-    MongoClient.connect(url, function (err, db) {
-        if (err) throw {
-            callbackFun(err,db)
-        }
-        console.log("数据库已创建!");
-        callbackFun(err,db)
-        db.close();
-    });
-}
+/**
+ * 连接
+ */
+mongoose.connect(DB_URL);
+
+/**
+  * 连接成功
+  */
+mongoose.connection.on('connected', function () {    
+    console.log('Mongoose connection open to ' + DB_URL);  
+});    
+
+/**
+ * 连接异常
+ */
+mongoose.connection.on('error',function (err) {    
+    console.log('Mongoose connection error: ' + err);  
+});    
+ 
+/**
+ * 连接断开
+ */
+mongoose.connection.on('disconnected', function () {    
+    console.log('Mongoose connection disconnected');  
+});
+
+module.exports = mongoose
