@@ -1,6 +1,6 @@
 var mongoose = require('mongoose')
 
-var schema = new mongoose.Schema({
+var articleSchema = new mongoose.Schema({
     title: {type : String, default : 'title'},
     author:{type : String, default : 'zhaokai'},
     create_date:{type : Date, default : new Date()},
@@ -9,4 +9,4 @@ var schema = new mongoose.Schema({
     popular_num:{type : Number},
     view_num:{type : Number},
 })
-module.exports = schema
+module.exports = articleSchema
