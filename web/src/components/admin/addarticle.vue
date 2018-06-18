@@ -95,7 +95,7 @@
                 this.$refs[formName].resetFields();
             },
             submitForm: function() {
-                let url = `${ServerHost}/article/list`
+                let url = `${ServerHost}/article/list/`
                 console.log(this.formData)
                 this.$axios.put(url, this.formData).then((response) => {
                     if (response.status == 200) {

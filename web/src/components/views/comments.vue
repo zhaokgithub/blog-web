@@ -16,7 +16,7 @@
     <div class="content-list">
         <div>
             <h2>Your Suggestion</h2>
-            <el-input type="textarea" :rows="10" placeholder="请输入你想说的话..." v-model="textarea">
+            <el-input  type="textarea" :rows="10" placeholder="请输入你想说的话..." v-model="comments">
             </el-input>
             <el-button type="primary" style="margin-top:10px;float:right;">发布评论<i class="el-icon-upload el-icon--right"></i></el-button>
         </div>
@@ -25,7 +25,9 @@
 <script>
     export default {
         data() {
-            return {}
+            return {
+                comments:''
+            }
         }
     }
 </script>

@@ -20,7 +20,7 @@ export default new Router({
       path: '/admin',
       name: 'admin',
       component: admin,
-      // redirect:{path:'/admin/addarticle'},
+      redirect:{path:'/admin/addarticle'},
       children: [
         {
           path: 'addarticle',

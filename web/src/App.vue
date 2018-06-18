@@ -88,14 +88,14 @@
       }
     },
     created: function() {
+      console.log(this.$route.name)
       this.activeMenu = this.$route.name
       this.isShowMenu = (this.$route.path.indexOf('admin') > -1) ? false : true
       this.queryAllArticle()
     },
     watch: {
       '$route': function(val, oldVal) {
-        console.log(val)
-        // this.activeMenu = this.$route.name
+        this.activeMenu = this.$route.name
       }
     },
     methods: {

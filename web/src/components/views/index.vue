@@ -129,16 +129,16 @@ a:hover {
     <el-row>
         <el-col :span="18">
             <div class="article-info">
-                <article v-for="items in articleInfoArr" :key="items.title" class="article-content">
-                    <h3 style="border-bottom:solid 1px #F0FFFF;text-align:center;line-height: 1.1;font-size: 1.6em;margin:0px;" @click="showArticleContent(items)">{{items.title}}地运行的demo快速入门跨域</h3>
+                <article v-for="items in articleInfoArr" :key="items.curTime" class="article-content">
+                    <h3 style="border-bottom:solid 1px #F0FFFF;text-align:center;line-height: 1.1;font-size: 1.6em;margin:0px;" @click="showArticleContent(items)">{{items.title}}</h3>
                     <div style="color:gray;text-align:right;font-size: 14px;">
                         <span><i class="el-icon-time"></i>2017-12-05 21:56:03</span>
-                        <span><i class="el-icon-service">作者的</i></span>
+                        <span><i class="el-icon-service">作者:{{items.author}}</i></span>
                     </div>
                     <div class="ui ribbon label red">
                         <a >手机测试</a>
                     </div>
-                    <section style="color:#999;font-size:14px;min-height:180px;width:98%;">{{items.info}}之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项之前有发过这个项目的文章了，根据朋友的建议改变了博客的样式，也增加了一些新功能，下面完整地介绍这个博客项目。文末附前端实习求职简历之前有发过这个项目的文章了，根据朋友的建议改变了博客的样式，也增加了一些新功能，下面完整地介绍这个博客项目。文末附前端实习求职简历之前有发过这个项目的文章了，根据朋友的建议改变了博客的样式，也增加了一些新功能，下面完整地介绍这个博客项目。文末附前端实习求职简历之前有发过这个项目的文章了，根据朋友的建议改变了博客的样式，也增加了一些新功能，下面完整地介绍这个博客项目。文末附前端实习求职简历</section>
+                    <section style="color:#999;font-size:14px;min-height:180px;width:98%;">{{items.info}}</section>
                     <div style="color:#999;right;text-align:right;padding-right:20px;">
                         <el-button type="primary" size="small" style="width:90px;color:#fff;background-color:#96e1fc;border-color:#96e1fc;margin-bottom:5px;" @click="showArticleContent(items)"><span @mouseout="isShow = false" @mouseenter="isShow = true">阅读全文</span><i v-show="isShow" class="el-icon-d-arrow-right el-icon--right"></i></el-button>
                     </div>
@@ -178,7 +178,7 @@ export default {
         return {
             isShow: false,
             loading: null,
-            articleInfoArr: ['biati', 'dde', 'ddse', 'eeeeeeee'],
+            articleInfoArr: [],
             //dummy
             curTime: '',
             articleCategory: [
@@ -196,14 +196,14 @@ export default {
         this.queryArticleIntro()
         this.$isBlank()
         this.curTime = moment(new Date()).format("YYYY-MM-DD hh:mm:ss")
-        // this.loading = this.$loading({
-        //     lock: true,
-        //     text: 'Loading',
-        //     spinner: 'el-icon-loading',
-        //     background: 'rgba(0, 0, 0, 0.7)'
-        // });
-        // Object.defineProperty(this.$data,"articleInfoArr",{
-        // })
+        this.loading = this.$loading({
+            lock: true,
+            text: 'Loading',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)'
+        });
+        Object.defineProperty(this.$data,"articleInfoArr",{
+        })
     },
     methods: {
         switchTab: function(name) {},
@@ -212,14 +212,15 @@ export default {
 
         },
         queryArticleIntro() {
-            // this.loading.close()
+            // this.loading.close()//沒有使用server端不注釋
             let url = `${ServerHost}/article/list/`
             this.$axios.get(url).then((res) => {
                 if (res.status > 199 && res.status < 300) {
+                    this.loading.close()
                     res.data.forEach(v => {
-                        this.articleInfoArr.push(v.fields)
+                        v.info = v.content.slice(0,400)
+                        this.articleInfoArr.push(v)
                     });
-                    // this.loading.close()
                 } else {
                     console.log(res)
                 }
