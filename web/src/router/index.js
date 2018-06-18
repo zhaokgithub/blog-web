@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import admin from '@/components/admin'
+import addarticle from '@/components/admin/addarticle'
+import deletearticle from '@/components/admin/deletearticle'
 import index from '@/components/views/index.vue'
 import article from '@/components/views/article.vue'
 import comments from '@/components/views/comments.vue'
@@ -13,6 +16,24 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path: '/admin',
+      name: 'admin',
+      component: admin,
+      // redirect:{path:'/admin/addarticle'},
+      children: [
+        {
+          path: 'addarticle',
+          name: 'addarticle',
+          component: addarticle
+        },
+        {
+          path: 'deletearticle',
+          name: 'deletearticle',
+          component: deletearticle
+        }
+      ]
+    },
     {
       path: '/',
       name: 'index',

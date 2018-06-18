@@ -7,6 +7,10 @@ var articleModel = db.model('article', article_schema)
 //查询所有数据
 var queryList = function (req, res, next) {
     articleModel.find({}, function (error, docs) {
+        if(error){
+            console.log(error)
+            return
+        }
         res.json(docs)
     })
 }
@@ -14,6 +18,10 @@ var queryList = function (req, res, next) {
 var queryArticle = function (req, res, next) {
     let id = req.params.id
     articleModel.find({_id: id}, function (error, docs) {
+        if(error){
+            console.log(error)
+            return
+        }
         res.json(docs)
     })
     res.json({data: {}})
@@ -25,16 +33,15 @@ var updateArticle = function (req, res, next) {
 }
 //增加数据
 var addList = function (req, res, next) {
-    var mongooseEntity = new articleModel(req.query);
+    console.log(req)
+    var mongooseEntity = new articleModel(req.body);
     mongooseEntity.save(function (error) {
         if (error) {
-            res.send(error)
             console.log(error)
-
-        } else {
-            res.send('saved OK!')
+           return
         }
-    });
+        res.json()
+    })
 }
 
 module.exports = {

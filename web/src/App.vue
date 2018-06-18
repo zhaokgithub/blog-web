@@ -17,9 +17,12 @@
     color: #333;
     text-align: center;
     min-width: 900px;
+    min-height: 900px;
+    height: 100%;
   }
   body>.el-container {
     margin-bottom: 40px;
+    height: 1200px !important;
   }
   .el-container:nth-child(5) .el-aside,
   .el-container:nth-child(6) .el-aside {
@@ -38,7 +41,7 @@
 
 <template>
   <div id="app">
-    <el-container>
+    <el-container v-if="isShowMenu">
       <div id="header">
         <el-row>
           <el-col :span="24">
@@ -64,10 +67,13 @@
           <el-col :span="3"></el-col>
         </el-row>
       </el-main>
-      <el-footer>
+      <el-footer v-if="isShowMenu">
         Create Time:2018-04-07
       </el-footer>
     </el-container>
+    <div v-if="!isShowMenu" :style="{height:height}">
+        <router-view/>
+      </div>
   </div>
 </template>
 
@@ -76,15 +82,19 @@
     name: 'App',
     data() {
       return {
-        activeMenu: 'index'
+        height:'100%',
+        activeMenu: 'index',
+        isShowMenu: true
       }
     },
-    mounted: function() {
+    created: function() {
       this.activeMenu = this.$route.name
+      this.isShowMenu = (this.$route.path.indexOf('admin') > -1) ? false : true
       this.queryAllArticle()
     },
     watch: {
       '$route': function(val, oldVal) {
+        console.log(val)
         // this.activeMenu = this.$route.name
       }
     },

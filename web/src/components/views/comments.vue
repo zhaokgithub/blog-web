@@ -20,15 +20,6 @@
             </el-input>
             <el-button type="primary" style="margin-top:10px;float:right;">发布评论<i class="el-icon-upload el-icon--right"></i></el-button>
         </div>
-        <div class="comments-content">
-
-        </div>
-        <div class="comments-content">
-
-        </div>
-        <div class="comments-content">
-
-        </div>
     </div>
 </template>
 <script>
