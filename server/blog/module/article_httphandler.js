@@ -6,8 +6,7 @@ var article_schema = require('../database/article.js')
 var articleModel = db.model('article', article_schema)
 //查询所有数据
 var queryList = function (req, res, next) {
-    console.log('teeeeeeeeeeeeeeeeee')
-    var page= req.query.page
+    var page= !req.query.page ? 1 : req.query.page
     var query = articleModel.find({})
     query.skip((page-1)*50)
     query.limit(50)
@@ -18,29 +17,29 @@ var queryList = function (req, res, next) {
         }else {
             //计算数据总数
             articleModel.find({},function (error,data) {
-                var resultsJson = {data:docs,page:page,count:data.length}
+                var resultsJson = {page:page,size:50,count:data.length,data:docs}
                 res.json(resultsJson)
             })
         }
     })
-
-    // articleModel.find({}, function (error, docs) {
-    //     if (error) {
-    //         console.log(error)
-    //         return
-    //     }
-    //     res.json(docs)
-    // })
 }
 //按参数查询
 var filterArticleList= function (req,res,next) {
-    console.log('ffffffffffffff')
-    articleModel.find({}, function (error, docs) {
-        if (error) {
+    var page= !req.query.page ? 1 : req.query.page
+    var query = articleModel.find({})
+    query.skip((page-1)*50)
+    query.limit(50)
+    query.exec(function (error,docs) {
+        if(error){
             console.log(error)
             return
+        }else {
+            //计算数据总数
+            articleModel.find({},function (error,data) {
+                var resultsJson = {page:page,size:50,count:data.length,data:docs}
+                res.json(resultsJson)
+            })
         }
-        res.json(docs)
     })
 }
 //增加数据
