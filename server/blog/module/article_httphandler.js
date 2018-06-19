@@ -57,14 +57,13 @@ var addList = function (req, res, next) {
 //查询单个文章数据
 var queryArticle = function (req, res, next) {
     let id = req.params.id
-    articleModel.find({_id: id}, function (error, docs) {
+    articleModel.findById({_id: id}, function (error, docs) {
         if (error) {
             console.log(error)
             return
         }
         res.json(docs)
     })
-    res.json({data: {}})
 }
 //修改单个文章数据
 var updateArticle = function (req, res, next) {

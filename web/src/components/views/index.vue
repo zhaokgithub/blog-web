@@ -230,7 +230,7 @@ export default {
             this.$router.push({
                 path: 'article/detail/',
                 query: {
-                    id: 1
+                    id: obj._id
                 }
             })
         },

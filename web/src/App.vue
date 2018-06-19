@@ -88,7 +88,6 @@
       }
     },
     created: function() {
-      console.log(this.$route.name)
       this.activeMenu = this.$route.name
       this.isShowMenu = (this.$route.path.indexOf('admin') > -1) ? false : true
       this.queryAllArticle()
