@@ -202,8 +202,6 @@ export default {
             spinner: 'el-icon-loading',
             background: 'rgba(0, 0, 0, 0.7)'
         });
-        Object.defineProperty(this.$data,"articleInfoArr",{
-        })
     },
     methods: {
         switchTab: function(name) {},
@@ -217,7 +215,7 @@ export default {
             this.$axios.get(url).then((res) => {
                 if (res.status > 199 && res.status < 300) {
                     this.loading.close()
-                    res.data.forEach(v => {
+                    res.data.data.forEach(v => {
                         v.info = v.content.slice(0,400)
                         this.articleInfoArr.push(v)
                     });
