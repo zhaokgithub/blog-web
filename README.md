@@ -9,7 +9,7 @@
   ```
   git clone +git@github.com:zhaokgithub/vue-blog.git //克隆项目
   ```
-  ####vue端：
+  #### vue端：
   <br>
   进入项目根目录安装依赖（即存在package.json文件的目录）
   <br>
@@ -20,7 +20,7 @@
   ```
   npm run dev //启动项目
   ```
-   ####server端：
+   #### server端：
    <br>
    进入项目根目录安装依赖（即存在package.json文件的目录）
    
@@ -31,7 +31,7 @@
   ```
   npm start //启动项目
   ```
-     ####报错（未连接mongodb错误）
+   #### 报错（未连接mongodb错误）
     启动数据库,(进入mongodb安装目录bin)
    ```
     mongod --dbpath=f:data//启动mongodb f:data文档存放路径
