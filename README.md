@@ -6,11 +6,9 @@
    安装mongodb，官网下载自行安装
    <br>
 ## 2.启动项目
-  <br>
   ```
   git clone +git@github.com:zhaokgithub/vue-blog.git //克隆项目
   ```
-  <br>
   vue端：
   <br>
   进入项目根目录安装依赖（即存在package.json文件的目录）
@@ -19,30 +17,23 @@
   ```
   npm install//依赖安装
   ```
-  <br>
   ```
   npm run dev //启动项目
   ```
-  <br>
    server端：
    <br>
    进入项目根目录安装依赖（即存在package.json文件的目录）
-   <br>
+   
    ```
   npm install//依赖安装
   ```
-  <br>
     启动项目
-    <br>
   ```
   npm start //启动项目
   ```
-  <br>
      报错（未连接mongodb错误）
-    <br>
     启动数据库,(进入mongodb安装目录bin)
-    <br>
-      ```
-  mongod --dbpath=f:data//启动mongodb f:data文档存放路径
-  ```
+   ```
+    mongod --dbpath=f:data//启动mongodb f:data文档存放路径
+   ```
    
