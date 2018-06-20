@@ -31,8 +31,7 @@
         <div class="login-con">
             <el-card :bordered="false">
                 <p slot="title">
-                    <i class="el-icon-share"></i>
-                    欢迎登录
+                    <i class="el-icon-share"></i> 欢迎登录
                 </p>
                 <div class="form-con">
                     <el-form ref="loginForm" :model="form" :rules="rules">
@@ -57,6 +56,9 @@
     </div>
 </template>
 <script>
+    import {
+        ServerHost
+    } from '../../config.js'
     export default {
         data() {
             return {
@@ -80,7 +82,15 @@
         },
         methods: {
             handleSubmit() {
+                let url = `${ServerHost}/login/`
+                let params = {
+                    user: this.form.userName,
+                    pwd: this.form.password
+                }
                 let date = new Date()
+                this.$axios.post(url, params).then((response)=>{
+                    
+                })
                 this.$cookie.set('user', this.form.userName, date)
                 this.$cookie.set('password', this.form.password, date)
                 // this.$store.commit('setAvator', 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3448484253,3685836170&fm=27&gp=0.jpg');
