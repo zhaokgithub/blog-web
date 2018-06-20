@@ -41,7 +41,7 @@
 
 <template>
   <div id="app">
-    <el-container v-if="isShowMenu">
+    <el-container v-show="isShowMenu">
       <div id="header">
         <el-row>
           <el-col :span="24">
@@ -67,11 +67,11 @@
           <el-col :span="3"></el-col>
         </el-row>
       </el-main>
-      <el-footer v-if="isShowMenu">
+      <el-footer>
         Create Time:2018-04-07
       </el-footer>
     </el-container>
-    <div v-if="!isShowMenu" :style="{height:height}">
+    <div v-show="!isShowMenu" :style="{height:height}">
         <router-view/>
       </div>
   </div>
@@ -88,14 +88,14 @@
       }
     },
     created: function() {
-      console.log(this.$route.name)
       this.activeMenu = this.$route.name
-      this.isShowMenu = (this.$route.path.indexOf('admin') > -1) ? false : true
+      this.isShowMenu = (this.$route.path.indexOf('admin') > -1) || (this.$route.path.indexOf('login') > -1) ? false : true
       this.queryAllArticle()
     },
     watch: {
       '$route': function(val, oldVal) {
         this.activeMenu = this.$route.name
+        this.isShowMenu = (val.path.indexOf('admin') > -1) || (val.path.indexOf('login') > -1) ? false : true
       }
     },
     methods: {

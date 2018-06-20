@@ -6,6 +6,7 @@
                     <span slot="title"><i class="el-icon-edit-outline"></i>文章管理</span>
                     <el-menu-item index="addarticle">添加文章</el-menu-item>
                     <el-menu-item index="deletearticle">删除文章</el-menu-item>
+                    <el-menu-item index="modifyarticle">修改文章</el-menu-item>
                 </el-submenu>
             </el-menu>
         </el-aside>

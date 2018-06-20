@@ -1,8 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Cookies from 'vue-cookie'
+import login from '@/components/admin/login'
 import admin from '@/components/admin'
 import addarticle from '@/components/admin/addarticle'
 import deletearticle from '@/components/admin/deletearticle'
+import modifyarticle from '@/components/admin/modifyarticle'
 import index from '@/components/views/index.vue'
 import article from '@/components/views/article.vue'
 import comments from '@/components/views/comments.vue'
@@ -14,13 +17,18 @@ import content from '@/components/views/content.vue'
 
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
   routes: [
+    {
+      path: '/login',
+      name: 'login',
+      component: login
+    },
     {
       path: '/admin',
       name: 'admin',
       component: admin,
-      redirect:{path:'/admin/addarticle'},
+      redirect: { path: '/admin/addarticle' },
       children: [
         {
           path: 'addarticle',
@@ -31,7 +39,12 @@ export default new Router({
           path: 'deletearticle',
           name: 'deletearticle',
           component: deletearticle
-        }
+        },
+        {
+          path: 'modifyarticle',
+          name: 'modifyarticle',
+          component: modifyarticle
+        },
       ]
     },
     {
@@ -61,3 +74,18 @@ export default new Router({
     },
   ]
 })
+
+let self = this
+router.beforeEach((to, from, next) => {
+  let user = Cookies.get('user')
+  if (to.path.indexOf('/admin') > -1 && ! user) {//判断是否是前往后台页面
+    next({
+      name: 'login'
+    })
+    return
+  }
+  next()
+})
+router.afterEach((to, from, next) => {
+})
+export default router

@@ -44,7 +44,7 @@
                 let url = `${ServerHost}/article/list/`
                 this.$axios.get(url).then((response) => {
                     if (response.status == 200) {
-                        response.data.forEach(v => {
+                        response.data.data.forEach(v => {
                             v.info = !v.content ? '' : v.content.slice(0, 100)
                             this.tableData.push(v)
                         })

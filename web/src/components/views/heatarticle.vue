@@ -67,12 +67,12 @@
         methods: {
             queryList() {
                 let url = `${ServerHost}/article/list/`
-                this.$axios.put(url).then((res) => {
+                this.$axios.get(url).then((res) => {
                     if (res.status == 200) {
-                        res.data.forEach(v => {
+                        res.data.data.forEach(v => {
                             this.titleArr.push(v)
                         });
-                        this.loading.close()
+                        // this.loading.close()
                     }
                 })
             }
