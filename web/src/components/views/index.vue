@@ -131,17 +131,17 @@
             <el-col :span="6" style="padding-left:50px;margin-top:80px;">
                 <div class="artile-tag">
                     <p style="border-bottom: solid 1px #E5E5E5;padding:5px;">推荐文章</p>
-                    <div style="height:100%;min-height:150px;padding-left:10px;">
-                        <p style="margin:5px;" v-for="item in articleCategory" :key="item">
-                            <span><a href="#" target="_blank">{{item}}</a></span>
+                    <div style="height:100%;min-height:150px;padding-left:10px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;cursor:pointer;">
+                        <p style="margin:5px;" v-for="item in articleHot">
+                            <span><a  @click="showArticleContent(item)" :title="item.title">{{item.title}}</a></span>
                         </p>
                     </div>
                 </div>
                 <div class="artile-hot">
                     <p style="border-bottom: solid 1px #E5E5E5;padding:5px;">文章分类</p>
-                    <div style="height:100%;min-height:150px;padding-left:10px;">
-                        <div v-for="item in articleHot" :key="item">
-                            <p style="margin-top:5px;"><a href="#" target="_blank">{{item}}(15)</a></p>
+                    <div style="height:100%;min-height:150px;padding-left:10px;text-overflow:ellipsis;white-space: nowrap;cursor:pointer;">
+                        <div v-for="item in articleCategory">
+                            <p style="margin-top:5px;"><a  @click="queryArticleIntro()">{{type[item]}}</a></p>
                         </div>
                     </div>
                 </div>
@@ -164,15 +164,9 @@
                 articleInfoArr: [],
                 //dummy
                 curTime: '',
-                articleCategory: [
-                    "手机测试", "javascript原理", 'java开发'
-                ],
-                articleHot: [
-                    "javascript原型分析",
-                    "javascript闭包理解",
-                    "javascript测试",
-                    "额问题为",
-                ]
+                type:['vue相关','node','前端','UI','javascript基础'],
+                articleCategory: [],
+                articleHot: []
             }
         },
         mounted: function() {
@@ -193,24 +187,28 @@
                 debugger
             },
             queryArticleIntro() {
-                // this.loading.close()//沒有使用server端不注釋
                 let url = `${ServerHost}/article/list/`
-                this.$axios.get(url).then((res) => {
-                    if (res.status > 199 && res.status < 300) {
-                        this.loading.close()
-                        if (res.data.data.length == 0) {
-                            return ''
-                        }
-                        res.data.data.forEach(v => {
-                            v.info = v.content ? v.content.slice(0, 400) : ''
-                            this.articleInfoArr.push(v)
-                        });
-                    } else {
-                        console.log(res)
-                    }
-                }).catch(function(err) {
-                    console.log(err)
+                let self = this
+                this.$httpGetRequestFactory(url, function callBackFunc(response) {
+                    self.loading.close()
+                    if (response.data.data.length == 0) return
+                    response.data.data.forEach(v => {
+                        v.info = v.content ? v.content.slice(0, 400) : ''
+                        self.articleInfoArr.push(v)
+                        self.articleCategory.push(v.article_category)
+                    })
+                    self.articleHot = self.articleInfoArr.slice(0, 5)
+                    self.articleCategory = self.unique(self.articleCategory)
                 })
+            },
+            unique: function(data) {
+                let arr = []
+                for (let value of data) {
+                    if (arr.indexOf(value) == -1) {
+                        arr.push(value)
+                    }
+                }
+                return arr
             },
             showArticleContent(obj) {
                 this.$router.push({
