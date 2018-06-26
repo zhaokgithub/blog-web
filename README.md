@@ -1,3 +1,5 @@
+## 思维导图
+   ![设计图](https://github.com/zhaokgithub/vue-blog/blob/master/web/static/img/designer-web.PNG)
 ## 1.环境搭建（window）
    安装最新的node.js[下载node](https://nodejs.org/zh-cn/download/)<br>
    添加node到环境变量（网上教程很多不在赘述）
