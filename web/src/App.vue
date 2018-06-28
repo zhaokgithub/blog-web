@@ -41,7 +41,7 @@
 
 <template>
   <div id="app">
-    <el-container v-if="isShowMenu">
+    <el-container v-show="isShowMenu">
       <div id="header">
         <el-row>
           <el-col :span="24">
@@ -51,7 +51,7 @@
               </el-menu-item>
               <el-menu-item index="heatarticle">热门文章</el-menu-item>
               <el-menu-item index="comments">留言评论</el-menu-item>
-              <el-menu-item index="about">关于</el-menu-item>
+              <el-menu-item index="about">关于我</el-menu-item>
             </el-menu>
           </el-col>
         </el-row>
@@ -67,11 +67,11 @@
           <el-col :span="3"></el-col>
         </el-row>
       </el-main>
-      <el-footer v-if="isShowMenu">
+      <el-footer>
         Create Time:2018-04-07
       </el-footer>
     </el-container>
-    <div v-if="!isShowMenu" :style="{height:height}">
+    <div v-show="!isShowMenu" :style="{height:height}">
         <router-view/>
       </div>
   </div>
@@ -89,12 +89,13 @@
     },
     created: function() {
       this.activeMenu = this.$route.name
-      this.isShowMenu = (this.$route.path.indexOf('admin') > -1) ? false : true
+      this.isShowMenu = (this.$route.path.indexOf('admin') > -1) || (this.$route.path.indexOf('login') > -1) ? false : true
       this.queryAllArticle()
     },
     watch: {
       '$route': function(val, oldVal) {
         this.activeMenu = this.$route.name
+        this.isShowMenu = (val.path.indexOf('admin') > -1) || (val.path.indexOf('login') > -1) ? false : true
       }
     },
     methods: {

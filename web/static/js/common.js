@@ -33,11 +33,44 @@ exports.install = function (Vue, options) {
         ])
     }
     /**
+     *@method returnDropdownRenderFunc
+     *@param {function} h 传入render的h函数
+     *@param {Array} dropItem dropdown中子元素
+     *@param {object}  options 其他的属性
+     *@description 用来处理表格中的操作行为
+     */
+    Vue.prototype.$returnDropdownRenderFunc = function (h, dropItem, options) {
+        return h('Dropdown', {
+            props: {
+                transfer: true
+            }
+        }, [
+                h('Button', {
+                    attrs: {
+                        type: "info"
+                    }
+                }, ['操作', h('icon', {
+                    attrs: {
+                        type: 'arrow-down-b'
+                    },
+                    style: {
+                        marginLeft: '5px'
+                    }
+                })]),
+                h('DropdownMenu', {
+                    slot: 'list',
+                }, dropItem)
+            ])
+    }
+    /**
      *@method isBlank
      *@param {string || object} h 传入render的h函数
      *@description 判断传入的值为空
      */
     Vue.prototype.$isBlank = function (v) {
+        if (typeof v == "boolean") {
+            return v
+        }
         return v === null || v === undefined || v === ''
     }
     /**
@@ -90,7 +123,6 @@ exports.install = function (Vue, options) {
      *@description 手动点击事件
      */
     Vue.prototype.$executeClickEvent = function (curNode, index, isDomEle) {
-        isDomEle = this.$isBlank(isDomEle) ? false : true
         if (!isDomEle && curNode.$el.getElementsByClassName('ivu-table-row')[index]) {
             curNode.$el.getElementsByClassName('ivu-table-row')[index].click()
         } else if (isDomEle && curNode[index]) {
@@ -155,12 +187,25 @@ exports.install = function (Vue, options) {
             this.$Message.success("恭喜,数据修改成功。");
             _.forEach(tableData, function (v) {
                 if (!v._id) {
-                    if (v.id === resData.data.id) {
+                    if (resData.data && v.id === resData.data.id) {
                         _.assign(v, resData.data);
+                        return
+                    }
+                    if (resData.id && v.id === resData.id) {
+                        _.assign(v, resData);
                     }
                 } else {
-                    if (v._id === resData.data._id) {
+                    if (v._id === resData.data._id && !Array.isArray(resData.data)) {
                         _.assign(v, resData.data);
+                    } else {
+                        //返回多条数据时的处理方式
+                        _.forEach(resData.data, (v) => {
+                            _.forEach(tableData, (k) => {
+                                if (v.id == k.id) {
+                                    _.assign(k, v);
+                                }
+                            })
+                        })
                     }
                 }
             })
@@ -268,31 +313,64 @@ exports.install = function (Vue, options) {
    *@param {Boolean} reqStatus 判断get请求是否成功
    *@description 用来发送Get请求,返回从服务器上得到的数据
    */
-    Vue.prototype.$httpGetRequestFactory = function (url, tableData, dataFormate,status) {
-        let dateArr = ['createDate', 'fixedDate', 'reportDate']
-        let self = this
-        dataFormate = this.$isBlank(dataFormate) ? '' : dataFormate
-        this.$http.get(url)
-            .then((response) => {
+    Vue.prototype.$httpGetRequestFactory = function (url, callBackFun, options) {
+        options = this.$isBlank(options) ? {} : options
+        this.$axios.get(url, options)
+            .then(function (response) {
                 if (response.status > 199 && response.status < 300) {
-                    _.forEach(response.data, function (v) {
-                        for (let key in v) {
-                            if (dateArr.indexOf(key) > -1 ) {
-                                v[key] = self.$getFormatDate(v[key])
-                            }
-                        }
-                        tableData.push(v)
-                    })
-                    for(let k in status){
-                        status[k] = true
-                    }
+                    callBackFun(response)
                 } else {
-                    this.$Message.error(response.statusText)
-                    console.log('test')
+                    this.$Message.error("请求出错,请联系工作人员!")
                 }
             }).catch(function (response) {
-                console.error("response")
+                console.error(response)
+                this.$Message.error("请求出错,请联系工作人员!")
             })
     }
+    /**
+   *@method convertToPinyin
+   *@param {String} url 用户发送的url
+   *@param {Array} words 需要转换为拼音的汉字[]
+   *@param {Function} callBackFun 请求成功后的返回值
+   *@description 输入值自动匹配时候将汉字转成拼音
+   */
+    Vue.prototype.$convertToPinyin = function (url, words, callBackFun) {
+        if (words.length == 0) return
+        this.$http.put(url, {
+            str: words.join('*')
+        }).then((response) => {
+            if (response.status > 199 && response.status < 300) {
+                callBackFun(response)
+            } else {
+                this.$Message.info('请求出错!')
+            }
+        }).catch((response) => {
+            this.$Message.error('服务器出错!')
+            console.error(response)
+        })
+    }
+    //自动完成中根据输入项进行筛选
+    Vue.prototype.$filterMethod = function (value, option,words, normalPinyinArr, initialPinyinArr) {
+        let arr = []
+        if (!this.$isBlank(value)) {
+            //根据全拼进行匹配
+            for (let i = 0; i < normalPinyinArr.length; i++) {
+                if (normalPinyinArr[i].indexOf(value) > -1) {
+                    arr.push(words[i])
+                }
+            }
+            //根据简拼进行匹配
+            for (let i = 0; i < initialPinyinArr.length; i++) {
+                if (initialPinyinArr[i].indexOf(value) > -1) {
+                    arr.push(words[i])
+                }
+            }
+        }
+        arr = _.uniq(arr)
+        return option.indexOf(value) > -1 || arr.indexOf(option) > -1 || this.$isBlank(value);
+    }
+    Vue.prototype.$tableColFactory = function (tableCol) {
 
+        return []
+    }
 }

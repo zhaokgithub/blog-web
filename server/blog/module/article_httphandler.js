@@ -7,7 +7,7 @@ var articleModel = db.model('article', article_schema)
 //查询所有数据
 var queryList = function (req, res, next) {
     var page= !req.query.page ? 1 : req.query.page
-    var query = articleModel.find({})
+    var query = articleModel.find({}).sort({'popular_num':-1})
     query.skip((page-1)*50)
     query.limit(50)
     query.exec(function (error,docs) {
@@ -62,7 +62,8 @@ var queryArticle = function (req, res, next) {
             console.log(error)
             return
         }
-        res.json(docs)
+        let results = {status:200,data:docs}
+        res.json(results)
     })
 }
 //修改单个文章数据

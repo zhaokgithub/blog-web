@@ -68,7 +68,7 @@
                 isShowInfoDialog: false,
                 formData: {
                     title: '',
-                    author: '',
+                    author: '疯狂的snail',
                     create_date: new Date(),
                     comments: '',
                     content: '',
