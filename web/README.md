@@ -1,4 +1,20 @@
 # myblog
+## 项目展示
+### 首页
+![首页](https://github.com/zhaokgithub/vue-blog/blob/master/web/static/temp/index.PNG)
+<br>
+### 文章详情页
+![文章详情页](https://github.com/zhaokgithub/vue-blog/blob/master/web/static/temp/articleDetail.PNG)
+<br>
+### 热门文章
+![热门文章](https://github.com/zhaokgithub/vue-blog/blob/master/web/static/temp/heartArticle.PNG)
+<br>
+### 登录
+![登录](https://github.com/zhaokgithub/vue-blog/blob/master/web/static/temp/login.PNG)
+<br>
+### 首页
+![后台管理](https://github.com/zhaokgithub/vue-blog/blob/master/web/static/temp/admin.PNG)
+
 
 > A Vue.js project
 
