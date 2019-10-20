@@ -14,8 +14,6 @@ class BasicLayout extends Component {
                 <Layout>
                     <Header>Header</Header>
                     <Content>
-
-
                     </Content>
                     <Footer>Footer</Footer>
                 </Layout>
