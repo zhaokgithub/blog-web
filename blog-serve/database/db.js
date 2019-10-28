@@ -1,36 +1,7 @@
-/*!
- *
- 连接mongodb
- *
- 
- */
-var mongoose = require('mongoose')
-const DB_URL = 'mongodb://localhost:27017/my_web'
-
 /**
- * 连接
+ * @Description:
+ * @author zhaokai
+ * @date 2019/10/27
  */
-mongoose.connect(DB_URL)
-
-/**
- * 连接成功
- */
-mongoose.connection.on('connected', function() {
-    console.log('Mongoose connection open to ' + DB_URL)
-})
-
-/**
- * 连接异常
- */
-mongoose.connection.on('error', function(err) {
-    console.log('Mongoose connection error: ' + err)
-})
-
-/**
- * 连接断开
- */
-mongoose.connection.on('disconnected', function() {
-    console.log('Mongoose connection disconnected')
-})
-
-module.exports = mongoose
+let mongoose = require('mongoose');
+let db = mongoose.connection;

@@ -1,18 +1,28 @@
 {
-  "name": "blog",
-  "version": "0.0.0",
-  "private": true,
+  "name": "blog-serve",
+  "version": "1.0.0",
+  "description": "the backend of open source blog",
+  "main": "app.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node app.js",
+    "test": "test"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhaokgithub/blog-web.git"
+  },
+  "keywords": [
+    "blog",
+    "nodejs"
+  ],
+  "author": "Zeke",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhaokgithub/blog-web/issues"
+  },
+  "homepage": "https://github.com/zhaokgithub/blog-web#readme",
   "dependencies": {
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.6.9",
-    "ejs": "~2.5.7",
-    "express": "~4.16.0",
-    "http-errors": "~1.6.2",
-    "mongodb": "^3.0.10",
-    "mongoose": "^5.1.5",
-    "morgan": "~1.9.0"
+    "express": "^4.17.1",
+    "mongoose": "^5.7.7"
   }
 }
