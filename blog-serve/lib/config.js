@@ -5,7 +5,8 @@
  */
 
 let config = {
-    port:3000
+    port:3000,
+    db_host:''
 };
 
 module.exports  = config;
