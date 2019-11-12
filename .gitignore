@@ -1,2 +1,4 @@
 .idea/*
 blog-serve/.idea/*
+blog-serve/node_modules/*
+*/node_modules/*

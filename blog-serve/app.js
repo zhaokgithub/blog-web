@@ -5,9 +5,11 @@
  */
 let express = require('express');
 let app = express();
+let bodyParser = require('body-parser');
 let config = require('./lib/config');
 let router = require('./router/v1.0');
 
+app.use(bodyParser.json())
 app.use('/api/v1.0',router);
 app.use('*',function (req,res) {
     console.log('404');
