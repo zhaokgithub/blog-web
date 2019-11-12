@@ -13,4 +13,9 @@ router.post('/login',function (req,res,next) {
     login_module.handleLogin(req,res,next);
 });
 
+router.get('/list',function (req,res,next) {
+    console.log('user list');
+});
+
+
 module.exports = router;

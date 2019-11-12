@@ -6,7 +6,7 @@
 
 let express = require('express');
 
-let app = express()
+let app = express();
 let router = express.Router();
 let user_routes = require('./user_routes');
 
