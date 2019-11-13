@@ -11,7 +11,7 @@ let router = require('./router/v1.0');
 let jwt = require('express-jwt');
 
 app.use(bodyParser.json());
-app.use(jwt({secret:'zhaokai=jwt'}).unless({
+app.use(jwt({secret:config.jwt_secret_key}).unless({
     path:'/api/v1.0/user/login'
 }));
 app.use('/api/v1.0',router);

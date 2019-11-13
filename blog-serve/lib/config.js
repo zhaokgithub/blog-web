@@ -6,7 +6,8 @@
 
 let config = {
     port:3000,
-    db_host:''
+    db_host:'',
+    jwt_secret_key:"myjwttoken"
 };
 
 module.exports  = config;
