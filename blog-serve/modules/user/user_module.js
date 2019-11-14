@@ -7,6 +7,12 @@ let queryUserGroups = function(req,res,next){
 
 };
 
+let queryUserLib = function(req,res,next){
+
+};
+
+
 module.exports = {
-    queryUserGroups:queryUserGroups
+    queryUserGroups:queryUserGroups,
+    queryUserLib:queryUserLib
 };

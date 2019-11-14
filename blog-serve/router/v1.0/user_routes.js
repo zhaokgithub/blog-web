@@ -17,5 +17,16 @@ router.get('/list',function (req,res,next) {
     console.log('user list');
 });
 
+router.get('/detail/:user_id',function (req,res,next) {
+    console.log('user detail');
+});
+
+router.put('/detail/:user_id',function (req,res,next) {
+    
+});
+
+router.delete('/delete/:user_id',function (req,res,next) {
+
+});
 
 module.exports = router;

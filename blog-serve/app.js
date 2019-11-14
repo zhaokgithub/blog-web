@@ -8,12 +8,10 @@ let app = express();
 let bodyParser = require('body-parser');
 let config = require('./lib/config');
 let router = require('./router/v1.0');
-let jwt = require('express-jwt');
+let jwt = require('./lib/jwt');
 
 app.use(bodyParser.json());
-app.use(jwt({secret:config.jwt_secret_key}).unless({
-    path:'/api/v1.0/user/login'
-}));
+app.use(jwt);
 app.use('/api/v1.0',router);
 app.use('*',function (req,res) {
     console.log('404');

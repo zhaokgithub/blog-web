@@ -10,5 +10,7 @@ mongoose.connect('mongodb://localhost/test');
 let db = mongoose.connection;
 
 db.on('connection',function (err) {
-
+    if(err){
+        console.log(err)
+    }
 });

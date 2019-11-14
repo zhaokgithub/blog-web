@@ -5,9 +5,9 @@
  */
 
 let config = {
-    port:3000,
+    port:4000,
     db_host:'',
-    jwt_secret_key:"myjwttoken"
+    jwt_secret_key:"zhaokai"
 };
 
 module.exports  = config;
