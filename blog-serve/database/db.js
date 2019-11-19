@@ -6,11 +6,17 @@
 let mongoose = require('mongoose');
 let config = require('../lib/config');
 
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect(config.db.host+config.db.port);
 let db = mongoose.connection;
 
-db.on('connection',function (err) {
+db.on('error', console.error.bind(console, 'connection error:'));
+
+db.on('connected',function (err) {
     if(err){
         console.log(err)
+    }else {
+        console.log('mongodb starting success!')
     }
 });
+
+module.exports = mongoose

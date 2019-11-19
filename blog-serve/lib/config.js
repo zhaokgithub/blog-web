@@ -5,8 +5,12 @@
  */
 
 let config = {
+    db:{
+        host:'mongodb://localhost:',
+        port:27017
+    },
     port:4000,
-    db_host:'',
+
     jwt_secret_key:"zhaokai"
 };
 

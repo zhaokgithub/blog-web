@@ -8,6 +8,7 @@ let app = express();
 let bodyParser = require('body-parser');
 let config = require('./lib/config');
 let router = require('./router/v1.0');
+let db = require('./database/db');
 let jwt = require('./lib/jwt');
 
 app.use(bodyParser.json());
