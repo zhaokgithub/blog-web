@@ -1,12 +1,6 @@
 <template>
   <div id="app">
-    <el-container>
-      <HeaderLayout></HeaderLayout>
-      <el-main>
-        <router-view></router-view>
-      </el-main>
-      <el-footer>Footer</el-footer>
-    </el-container>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -25,7 +19,6 @@ body,
 html,
 section {
   height: 100%;
-  background: #f0ece0;
   margin:0px;
 }
 #app {

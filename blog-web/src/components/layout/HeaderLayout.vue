@@ -3,38 +3,49 @@
     <div class="header-content">
       <h1>文章分享</h1>
       <ul @click="handlerNavTab">
-        <li title="“home”">首页</li>
-        <li title="category">分类</li>
+        <li title="/home">首页</li>
         <li>留言</li>
       </ul>
     </div>
     <div class="header-action">
-      <div>搜索</div>
       <div>
-        <el-button type="primary" size="small" icon="el-icon-edit">写文章</el-button>
+        <el-input placeholder="请输入内容" size="small" v-model="searchContent" style="width:150px">
+          <i slot="append" class="el-icon-search" style="width:20px"></i>
+        </el-input>
+      </div>
+      <div>
+        <el-button type="primary" size="small" icon="el-icon-edit" @click="writeArticle">写文章</el-button>
       </div>
       <div>通知</div>
-      <div>登录</div>
+      <span class="header-action-login">登录</span>
     </div>
   </div>
 </template>
 <script>
 export default {
   data() {
-    return {};
+    return {
+      searchContent:'test'
+    };
   },
   methods: {
     handlerNavTab(e) {
-      console.log("dddd");
-      console.log(e);
+      let path = e.target.title;
+      this.$router.push(path);
+    },
+    writeArticle() {
+      this.$router.push("/edit/article");
     }
   }
 };
 </script>
-<style>
+<style lang="less" scoped>
+
+</style>
+<style lang="less">
 .header {
-  width: 60%;
-  padding: 0px 20% !important;
+  width: 68%;
+  padding: 0px 16% !important;
   margin: auto;
   height: 60px;
   background: #fff;
@@ -42,6 +53,15 @@ export default {
   padding: 0px 0px 0px 25px;
   align-items: center;
   justify-content: space-between;
+  .header-action-login{
+    cursor: pointer;
+    &:hover{
+      color:#409EFF;
+    }
+  }
+}
+.el-input-group__append{
+  padding:0px 5px !important;
 }
 .header-content,
 .header-action {
