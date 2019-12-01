@@ -6,7 +6,7 @@
 let mongoose = require('mongoose');
 let config = require('../lib/config');
 
-mongoose.connect(config.db.host+config.db.port);
+mongoose.connect(config.db.host);
 let db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));

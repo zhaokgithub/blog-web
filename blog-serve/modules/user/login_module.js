@@ -6,19 +6,25 @@
 const jwtJson = require('jsonwebtoken');
 let Util = require('../../lib/utils');
 let Config = require('../../lib/config');
+let user_model = require('../../database/model/user_model');
 
 let handleLogin = function (req, res, next) {
-    let user = {
-        name:"zhaokai",
-        pwd:'123456'
-    };
-    let token = jwtJson.sign(user, Config.jwt_secret_key, {
-        expiresIn: 60 * 60 * 24// 授权时效24小时
+    user_model.find({user_name: req.body.user_name},function(err,result){
+        if(err){
+            console.log(err);
+            res.json(err);
+            return
+        }
+        console.log(result);
+        let token = jwtJson.sign(user, Config.jwt_secret_key, {
+            expiresIn: 60 * 60 * 24// 授权时效24小时
+        });
+        let obj ={
+            token : token
+        };
+        res.json(Util.formatNormalRes(obj))
     });
-    let obj ={
-        token : token
-    };
-    res.json(Util.formatNormalRes(obj))
+
 };
 
 module.exports = {

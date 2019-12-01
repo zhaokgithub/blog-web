@@ -15,11 +15,10 @@ app.use(bodyParser.json());
 app.use(jwt);
 app.use('/api/v1.0',router);
 app.use('*',function (req,res) {
-    console.log('404');
     res.status(404);
-    res.json('404')
+    res.json('404');
 });
 
 app.listen(config.port,function () {
-    console.log('serving is start!')
+    console.log('serving is starting:'+config.port)
 });

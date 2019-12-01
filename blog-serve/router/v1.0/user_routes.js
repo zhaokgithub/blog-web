@@ -6,11 +6,17 @@
 let express = require('express');
 let router = express.Router();
 let login_module = require('../../modules/user/login_module');
+let register_module = require('../../modules/user/register_module');
 
 router.post('/login',function (req,res,next) {
     console.log('login');
     console.log(req.headers);
     login_module.handleLogin(req,res,next);
+});
+
+router.post('/register',function (req,res,next) {
+    console.log('register');
+    register_module.createUserLib(req,res,next);
 });
 
 router.get('/list',function (req,res,next) {

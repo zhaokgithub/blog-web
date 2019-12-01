@@ -6,8 +6,7 @@
 
 let config = {
     db:{
-        host:'mongodb://localhost:',
-        port:27017
+        host:'mongodb://localhost:27017/todo',
     },
     port:4000,
 
